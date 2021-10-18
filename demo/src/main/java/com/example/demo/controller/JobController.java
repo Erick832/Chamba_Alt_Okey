@@ -20,12 +20,12 @@ public class JobController {
     @Autowired
     private EntityDtoConverter entityDtoConverter;
     @PostMapping
-    public ResponseEntity<JobResponse>createStudent(@RequestBody JobRequest jobRequest){
+    public ResponseEntity<JobResponse>createJob(@RequestBody JobRequest jobRequest){
         Job job = jobServices.createJob(jobRequest);
         return new ResponseEntity<>(entityDtoConverter.convertEntityToDto(job), HttpStatus.CREATED);
     }
     @GetMapping
-    public ResponseEntity<List<JobResponse>>findAllRecycles(){
+    public ResponseEntity<List<JobResponse>>findAllJob(){
         List<Job> jobs = jobServices.findAllJob();
         return new ResponseEntity<>(entityDtoConverter.convertEntityToDto(jobs),HttpStatus.OK);
     }
