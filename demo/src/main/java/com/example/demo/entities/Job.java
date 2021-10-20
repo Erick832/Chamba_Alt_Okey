@@ -3,6 +3,7 @@ package com.example.demo.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,4 +16,5 @@ public class Job {
     private String nameJob;
     @Column(name="type")
     private String typeJob;
+
 }

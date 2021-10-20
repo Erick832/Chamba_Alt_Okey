@@ -35,9 +35,8 @@ public class EmployerController {
         employerServices.deleteEmployer(Long.valueOf(idEmployer));
     }
     @PutMapping("/{idEmployer}")
-    public ResponseEntity<EmployerResponse>updateEmployer(Long idEmployer,@RequestBody EmployerRequest employerRequest){
+    public ResponseEntity<EmployerResponse>updateEmployer(@PathVariable Long idEmployer,@RequestBody EmployerRequest employerRequest){
         Employer employer=employerServices.updateEmployer(idEmployer,employerRequest);
         return  new ResponseEntity<>(entityDtoConverter.convertEntityToDto(employer),HttpStatus.OK);
     }
-
 }

@@ -1,9 +1,11 @@
 package com.example.demo.common;
 
 import com.example.demo.dto.EmployerResponse;
+import com.example.demo.dto.JobOfferResponse;
 import com.example.demo.dto.JobResponse;
 import com.example.demo.entities.Employer;
 import com.example.demo.entities.Job;
+import com.example.demo.entities.JobOffer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,5 +36,15 @@ public class EntityDtoConverter {
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
     }
+
+    public JobOfferResponse convertEntityToDto(JobOffer jobOffer){
+        return modelMapper.map(jobOffer,JobOfferResponse.class);
+    }
+    public List<JobOfferResponse>convertJobOffersToDto(List<JobOffer>jobOffers){
+        return jobOffers.stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
 
 }

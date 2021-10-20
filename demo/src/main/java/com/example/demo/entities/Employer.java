@@ -3,6 +3,7 @@ package com.example.demo.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -18,6 +19,6 @@ public class Employer {
     @Column(name="company_name")
     private String company;
     @Column(name="date_of_birth")
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
 
 }

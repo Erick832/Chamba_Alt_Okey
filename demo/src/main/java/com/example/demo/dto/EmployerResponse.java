@@ -2,6 +2,8 @@ package com.example.demo.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 
 @Data
 public class EmployerResponse {
@@ -9,5 +11,5 @@ public class EmployerResponse {
     private String name;
     private String lastName;
     private String company;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
 }

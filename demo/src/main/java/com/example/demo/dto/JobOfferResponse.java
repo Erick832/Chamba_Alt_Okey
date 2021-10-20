@@ -1,0 +1,17 @@
+package com.example.demo.dto;
+
+import com.example.demo.entities.Employer;
+import com.example.demo.entities.Job;
+import lombok.Data;
+
+import java.util.Date;
+import java.util.List;
+@Data
+public class JobOfferResponse {
+    private Long offerIdJob;
+    private String description;
+    private Date date;
+
+    private Employer employer;
+    private List<Job> jobs;
+}
