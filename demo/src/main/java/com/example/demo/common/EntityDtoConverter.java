@@ -1,8 +1,10 @@
 package com.example.demo.common;
 
+import com.example.demo.dto.EmployeeResponse;
 import com.example.demo.dto.EmployerResponse;
 import com.example.demo.dto.JobOfferResponse;
 import com.example.demo.dto.JobResponse;
+import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employer;
 import com.example.demo.entities.Job;
 import com.example.demo.entities.JobOffer;
@@ -33,6 +35,15 @@ public class EntityDtoConverter {
     }
     public List<EmployerResponse>convertEmployersToDto(List<Employer> employers){
         return employers.stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    public EmployeeResponse convertEntityToDto(Employee employee){
+        return modelMapper.map(employee,EmployeeResponse.class);
+    }
+    public List<EmployeeResponse>convertEmployeesToDto(List<Employee>employees){
+        return employees.stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
     }

@@ -29,4 +29,13 @@ public class JobOfferController {
         List<JobOffer> jobOffers=jobOfferServices.findAllJobOffer();
         return new ResponseEntity<>(entityDtoConverter.convertJobOffersToDto(jobOffers),HttpStatus.OK);
     }
+    @DeleteMapping("/{idJobOffer}")
+    public void deleteJobOffer(@PathVariable Long idJobOffer ){
+        jobOfferServices.deleteJobOffer(idJobOffer);
+    }
+    @PutMapping("/{idJobOffer}")
+    public ResponseEntity<JobOfferResponse>updateJobOffer(@PathVariable Long idJobOffer,@RequestBody JobOfferRequest jobOfferRequest ){
+        JobOffer jobOffer=jobOfferServices.updateJobOffer(idJobOffer,jobOfferRequest);
+        return new ResponseEntity<>(entityDtoConverter.convertEntityToDto(jobOffer),HttpStatus.OK);
+    }
 }

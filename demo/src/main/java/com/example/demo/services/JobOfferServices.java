@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.common.Validator;
 import com.example.demo.dto.JobOfferRequest;
+import com.example.demo.dto.JobOfferResponse;
 import com.example.demo.entities.Employer;
 import com.example.demo.entities.Job;
 import com.example.demo.entities.JobOffer;
@@ -48,6 +49,30 @@ public class JobOfferServices {
     @Transactional
     public List<JobOffer>findAllJobOffer(){
         return jobOfferRepository.findAll();
+    }
+
+    @Transactional
+    public void deleteJobOffer(Long id){
+        JobOffer jobOffer=jobOfferRepository.findById(id).orElseThrow(()->new NotFoundException(ExceptionMessageEnum.JOB_OFFER_NOT_FOUND.getMessage()));
+        jobOfferRepository.delete(jobOffer);
+    }
+    @Transactional
+    public JobOffer updateJobOffer(Long id, JobOfferRequest jobOfferRequest){
+        Validator.validarJobOffer(jobOfferRequest);
+        JobOffer jobOffer=jobOfferRepository.findById(id).orElseThrow(()->new NotFoundException(ExceptionMessageEnum.JOB_OFFER_NOT_FOUND.getMessage()));
+        Employer employer=employerRepository.findById(jobOfferRequest.getEmployerId()).orElseThrow(()->new NotFoundException(ExceptionMessageEnum.USER_NOT_FOUND.getMessage()));
+        List<Job>jobs=new ArrayList<>();
+        for (Long jobId:jobOfferRequest.getIdJobs()){
+            Job job=jobRepository.findById(jobId).orElseThrow(()->new NotFoundException(ExceptionMessageEnum.JOB_NOT_FOUND.getMessage()));
+            jobs.add(job);
+        }
+
+        jobOffer.setEmployer(employer);
+        jobOffer.setDescription(jobOfferRequest.getDescription());
+        jobOffer.setDate(new Date());
+        jobOffer.setJobs(jobs);
+        return jobOfferRepository.save(jobOffer);
+
     }
 
 }
