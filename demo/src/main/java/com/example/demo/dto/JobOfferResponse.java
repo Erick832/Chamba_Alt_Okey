@@ -1,7 +1,7 @@
 package com.example.demo.dto;
 
 import com.example.demo.entities.Employer;
-import com.example.demo.entities.Job;
+import com.example.demo.entities.Employment;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,5 +13,5 @@ public class JobOfferResponse {
     private Date date;
 
     private Employer employer;
-    private List<Job> jobs;
+    private List<Employment> employments;
 }

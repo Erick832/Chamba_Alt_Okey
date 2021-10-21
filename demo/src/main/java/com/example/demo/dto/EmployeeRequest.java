@@ -9,5 +9,5 @@ public class EmployeeRequest {
     private String name;
     private String lastName;
     private LocalDate dateOfBirth;
-    private List<Long>jobsId;
+    private List<Long>employmentsId;
 }

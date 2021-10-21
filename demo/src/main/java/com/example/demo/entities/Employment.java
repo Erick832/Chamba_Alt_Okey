@@ -6,13 +6,16 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name="Job")
-public class Job {
+@Table(name="Employment")
+public class Employment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name="name")
-    private String nameJob;
-    @Column(name="type")
-    private String typeJob;
+
+    @Column(name="Name_Employment")
+    private String name;
+
+    @Column(name="Type_Employment")
+    private String type;
+
 }

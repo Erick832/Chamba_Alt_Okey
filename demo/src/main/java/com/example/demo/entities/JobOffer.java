@@ -2,7 +2,6 @@ package com.example.demo.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Data
@@ -20,6 +19,6 @@ public class JobOffer {
     @ManyToOne
     private Employer employer;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Job>jobs;
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Employment>employments;
 }

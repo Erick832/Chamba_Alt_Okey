@@ -4,7 +4,6 @@ import com.example.demo.dto.EmployeeRequest;
 import com.example.demo.dto.EmployerRequest;
 import com.example.demo.dto.JobOfferRequest;
 import com.example.demo.dto.JobRequest;
-import com.example.demo.entities.Employee;
 import com.example.demo.exception.ExceptionMessageEnum;
 import com.example.demo.exception.BadRequestException;
 
@@ -22,7 +21,7 @@ public class Validator {
         return true;
     }
     public static boolean validarJobOffer(JobOfferRequest jobOfferRequest){
-        if (jobOfferRequest.getDescription().isEmpty()||jobOfferRequest.getIdJobs().isEmpty()||jobOfferRequest.getEmployerId()==null){
+        if (jobOfferRequest.getDescription().isEmpty()||jobOfferRequest.getEmploymentsId().isEmpty()||jobOfferRequest.getEmployerId()==null){
             throw new BadRequestException(ExceptionMessageEnum.JOB_OFFER_IS_EMPTY.getMessage());
         }
         return true;

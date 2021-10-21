@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-import com.example.demo.entities.Job;
+import com.example.demo.entities.Employment;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -11,5 +11,5 @@ public class EmployeeResponse {
     private String name;
     private String lastName;
     private LocalDate dateOfBirth;
-    private List<Job>jobs;
+    private List<Employment>employments;
 }

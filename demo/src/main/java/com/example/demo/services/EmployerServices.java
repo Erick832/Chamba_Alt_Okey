@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.NotAcceptableStatusException;
 
 import java.util.List;
 @Service
@@ -52,5 +51,4 @@ public class EmployerServices {
         employer.setDateOfBirth(employerRequest.getDateOfBirth());
         return employerRepository.save(employer);
     }
-
 }

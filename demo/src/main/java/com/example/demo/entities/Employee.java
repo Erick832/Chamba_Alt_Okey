@@ -20,5 +20,6 @@ public class Employee {
     @Column(name="date_of_birth")
     private LocalDate dateOfBirth;
     @OneToMany
-    private List<Job>jobs;
+    private List<Employment>employments;
+
 }
