@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.common.EntityDtoConverter;
 import com.example.demo.dto.EmployeeRequest;
 import com.example.demo.dto.EmployeeResponse;
+import com.example.demo.dto.UserRequest;
 import com.example.demo.entities.Employee;
 import com.example.demo.services.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,9 @@ public class EmployeeController {
         Employee employee = employeeServices.updateEmployee(idEmployee,employeeRequest);
         return new ResponseEntity<>(entityDtoConverter.convertEntityToDto(employee),HttpStatus.OK);
     }
-
+    @GetMapping("/login")
+    public ResponseEntity<EmployeeResponse>loginEmployer(@RequestBody UserRequest userRequest){
+        Employee employee= employeeServices.loginEmployee(userRequest);
+        return new ResponseEntity<>(entityDtoConverter.convertEntityToDto(employee),HttpStatus.OK);
+    }
 }

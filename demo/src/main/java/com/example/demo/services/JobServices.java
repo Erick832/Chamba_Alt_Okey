@@ -49,5 +49,4 @@ public class JobServices {
         job.setTypeJob(jobRequest.getTypeJob());
         return jobRepository.save(job);
     }
-
 }

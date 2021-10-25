@@ -9,5 +9,8 @@ public class EmployeeRequest {
     private String name;
     private String lastName;
     private LocalDate dateOfBirth;
+    private String email;
+    private String password;
+
     private List<Long>employmentsId;
 }

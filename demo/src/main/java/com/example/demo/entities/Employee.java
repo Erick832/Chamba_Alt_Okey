@@ -19,7 +19,11 @@ public class Employee {
     private String lastName;
     @Column(name="date_of_birth")
     private LocalDate dateOfBirth;
+    @Column(name="email")
+    private String email;
+    @Column (name="password")
+    private String password;
+
     @OneToMany
     private List<Employment>employments;
-
 }
