@@ -11,7 +11,7 @@ public class JobOfferResponse {
     private Long offerIdJob;
     private String description;
     private Date date;
-
+    private String state;
     private Employer employer;
-    private List<Employment> employments;
+    private Employment employment;
 }

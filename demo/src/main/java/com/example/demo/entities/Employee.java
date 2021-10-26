@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -25,5 +26,10 @@ public class Employee {
     private String password;
 
     @OneToMany
+    private List<Ability> abilities;
+
+    @OneToMany
     private List<Employment>employments;
+
+
 }

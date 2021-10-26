@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class EmploymentServices {
     @Autowired
     private EmploymentRepository employmentRepository;
-    public Employment createEmployer(Long id){
+    public Employment createEmployment(Long id){
         AllJobs allJobs=new AllJobs(id);
         Employment employment=new Employment();
         employment.setName(allJobs.getName());

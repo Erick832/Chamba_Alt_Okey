@@ -38,4 +38,21 @@ public class JobOfferController {
         JobOffer jobOffer=jobOfferServices.updateJobOffer(idJobOffer,jobOfferRequest);
         return new ResponseEntity<>(entityDtoConverter.convertEntityToDto(jobOffer),HttpStatus.OK);
     }
+    @GetMapping("/{idJobOffer}")
+    public ResponseEntity<JobOfferResponse>getById(@PathVariable Long idJobOffer){
+        JobOffer jobOffer=jobOfferServices.findJobOfferById(idJobOffer);
+        return new ResponseEntity<>(entityDtoConverter.convertEntityToDto(jobOffer),HttpStatus.OK);
+    }
+    @GetMapping("findByName/{name}")
+    public ResponseEntity<List<JobOfferResponse>>findAllByname(@PathVariable String name){
+        List<JobOffer>jobOffers=jobOfferServices.findAllByname(name);
+        return new ResponseEntity<>(entityDtoConverter.convertJobOffersToDto(jobOffers),HttpStatus.OK);
+    }
+    @GetMapping("findByType/{type}")
+    public ResponseEntity<List<JobOfferResponse>>findAllByType(@PathVariable String type){
+        List<JobOffer>jobOffers=jobOfferServices.findAllByType(type);
+        return new ResponseEntity<>(entityDtoConverter.convertJobOffersToDto(jobOffers),HttpStatus.OK);
+    }
+
+
 }

@@ -1,4 +1,5 @@
 package com.example.demo.entities;
+import com.sun.jdi.connect.Connector;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,14 +12,17 @@ public class JobOffer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long jobOfferId;
-
+    @Column(name="description")
     private String description;
+    @Column(name="state")
+    private String state;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @ManyToOne
     private Employer employer;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Employment>employments;
+    @OneToOne
+    private Employment employment;
+
 }

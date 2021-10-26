@@ -1,8 +1,10 @@
 package com.example.demo.services;
 
 import com.example.demo.common.Validator;
+import com.example.demo.dto.AbilityRequest;
 import com.example.demo.dto.EmployeeRequest;
 import com.example.demo.dto.UserRequest;
+import com.example.demo.entities.Ability;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
 import com.example.demo.exception.BadRequestException;
@@ -25,6 +27,9 @@ public class EmployeeServices {
 
     @Autowired
     private EmploymentServices employmentServices;
+     @Autowired
+     private AbilityServices abilityServices;
+
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
     public Employee createEmployee(EmployeeRequest employeeRequest) {
@@ -41,7 +46,7 @@ public class EmployeeServices {
         employee.setPassword(employeeRequest.getPassword());
         List<Employment>employments=new ArrayList<>();
         for (Long employmentId:employeeRequest.getEmploymentsId()){
-            Employment employment=employmentServices.createEmployer(employmentId);
+            Employment employment=employmentServices.createEmployment(employmentId);
             employments.add(employment);
         }
         employee.setEmployments(employments);
@@ -70,7 +75,7 @@ public class EmployeeServices {
         employee.setPassword(employeeRequest.getPassword());
         List<Employment>employments=new ArrayList<>();
         for (Long employmentId:employeeRequest.getEmploymentsId()){
-            Employment employment=employmentServices.createEmployer(employmentId);
+            Employment employment=employmentServices.createEmployment(employmentId);
             employments.add(employment);
         }
         employee.setEmployments(employments);
@@ -93,6 +98,17 @@ public class EmployeeServices {
             throw new BadRequestException(ExceptionMessageEnum.PASSWORD_INCORRECT.getMessage());
         }
         throw  new BadRequestException(ExceptionMessageEnum.EMAIL_NOT_FOUND.getMessage());
+    }
+    @Transactional
+    public Employee addAbility(Long id,AbilityRequest abilityRequest){
+        Employee employee=employeeRepository.findById(id).orElseThrow(()->new NotFoundException(ExceptionMessageEnum.USER_NOT_FOUND.getMessage()));
+        List<Ability>abilities=new ArrayList<>();
+        for (String text:abilityRequest.getAbilities()) {
+            Ability ability = abilityServices.createAbility(text);
+            abilities.add(ability);
+        }
+        employee.setAbilities(abilities);
+        return employeeRepository.save(employee);
     }
 
 }

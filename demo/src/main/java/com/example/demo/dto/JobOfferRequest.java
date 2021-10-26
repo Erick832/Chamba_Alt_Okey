@@ -7,5 +7,5 @@ import java.util.List;
 public class JobOfferRequest {
     private Long employerId;
     private String description;
-    private List<Long>employmentsId;
+    private Long employmentId;
 }

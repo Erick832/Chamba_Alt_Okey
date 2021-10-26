@@ -1,10 +1,9 @@
 package com.example.demo.repositories;
 
-import com.example.demo.entities.Job;
+import com.example.demo.entities.Ability;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 @Repository
-public interface JobRepository extends JpaRepository<Job,Long> {
+public interface AbilityRepository extends JpaRepository<Ability,Long> {
 
 }

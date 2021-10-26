@@ -5,11 +5,13 @@ import com.example.demo.dto.JobOfferRequest;
 import com.example.demo.entities.Employer;
 import com.example.demo.entities.Employment;
 import com.example.demo.entities.JobOffer;
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ExceptionMessageEnum;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.repositories.EmployerRepository;
 import com.example.demo.repositories.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -37,12 +39,9 @@ public class JobOfferServices {
         jobOffer.setDescription(jobOfferRequest.getDescription());
         jobOffer.setDate(new Date());
         jobOffer.setEmployer(employer);
-        List<Employment>employments=new ArrayList<>();
-        for (Long employmentId:jobOfferRequest.getEmploymentsId()){
-            Employment employment=employmentServices.createEmployer(employmentId);
-            employments.add(employment);
-        }
-        jobOffer.setEmployments(employments);
+        jobOffer.setState("available");
+        Employment employment=employmentServices.createEmployment(jobOfferRequest.getEmploymentId());
+        jobOffer.setEmployment(employment);
 
         return jobOfferRepository.save(jobOffer);
     }
@@ -64,14 +63,23 @@ public class JobOfferServices {
         jobOffer.setEmployer(employer);
         jobOffer.setDescription(jobOfferRequest.getDescription());
         jobOffer.setDate(new Date());
-        List<Employment>employments=new ArrayList<>();
-        for (Long employmentId:jobOfferRequest.getEmploymentsId()){
-            Employment employment=employmentServices.createEmployer(employmentId);
-            employments.add(employment);
-        }
-        jobOffer.setEmployments(employments);
+        jobOffer.setState("available");
+        Employment employment=employmentServices.createEmployment(jobOfferRequest.getEmploymentId());
+        jobOffer.setEmployment(employment);
 
         return jobOfferRepository.save(jobOffer);
+    }
+    @Transactional
+    public JobOffer findJobOfferById(Long id){
+        return jobOfferRepository.findById(id).orElseThrow(()->new BadRequestException(ExceptionMessageEnum.USER_NOT_FOUND.getMessage()));
+    }
+    @Transactional
+    public List<JobOffer>findAllByname(String name){
+        return jobOfferRepository.queryFiltrarPorNombre(name);
+    }
+    @Transactional
+    public List<JobOffer>findAllByType(String type){
+        return jobOfferRepository.queryFiltrarPorTipo(type);
     }
 
 }
