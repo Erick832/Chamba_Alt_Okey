@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +28,9 @@ public class JobOfferServices {
     private EmployerRepository employerRepository;
     @Autowired
     private EmploymentServices employmentServices;
+
+    @Autowired
+    private NotificationServices notificationServices;
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
     public JobOffer createJobOffer(JobOfferRequest jobOfferRequest) {
@@ -42,8 +44,9 @@ public class JobOfferServices {
         jobOffer.setState("available");
         Employment employment=employmentServices.createEmployment(jobOfferRequest.getEmploymentId());
         jobOffer.setEmployment(employment);
-
-        return jobOfferRepository.save(jobOffer);
+        jobOfferRepository.save(jobOffer);
+        notificationServices.createNotifications(employment.getName(),jobOffer.getJobOfferId());
+        return jobOffer;
     }
     @Transactional
     public List<JobOffer>findAllJobOffer(){

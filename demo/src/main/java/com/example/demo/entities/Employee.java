@@ -28,8 +28,8 @@ public class Employee {
     @OneToMany
     private List<Ability> abilities;
 
-    @OneToMany
-    private List<Employment>employments;
+    @OneToOne
+    private Employment employment;
 
 
 }

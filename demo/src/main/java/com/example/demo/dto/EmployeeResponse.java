@@ -16,7 +16,7 @@ public class EmployeeResponse {
     private String email;
     private String password;
     private List<Ability>abilities;
-    private List<Employment>employments;
+    private Employment employment;
 
 
 }

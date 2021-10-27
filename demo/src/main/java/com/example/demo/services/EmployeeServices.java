@@ -7,10 +7,12 @@ import com.example.demo.dto.UserRequest;
 import com.example.demo.entities.Ability;
 import com.example.demo.entities.Employee;
 import com.example.demo.entities.Employment;
+import com.example.demo.entities.Notification;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ExceptionMessageEnum;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.repositories.EmployeeRepository;
+import com.example.demo.repositories.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -24,11 +26,12 @@ import java.util.List;
 public class EmployeeServices {
     @Autowired
     private EmployeeRepository employeeRepository;
-
     @Autowired
     private EmploymentServices employmentServices;
-     @Autowired
-     private AbilityServices abilityServices;
+    @Autowired
+    private AbilityServices abilityServices;
+    @Autowired
+    private NotificationRepository notificationRepository;
 
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
@@ -44,12 +47,8 @@ public class EmployeeServices {
         employee.setDateOfBirth(employeeRequest.getDateOfBirth());
         employee.setEmail(employeeRequest.getEmail());
         employee.setPassword(employeeRequest.getPassword());
-        List<Employment>employments=new ArrayList<>();
-        for (Long employmentId:employeeRequest.getEmploymentsId()){
-            Employment employment=employmentServices.createEmployment(employmentId);
-            employments.add(employment);
-        }
-        employee.setEmployments(employments);
+        Employment employment=employmentServices.createEmployment(employeeRequest.getEmploymentId());
+        employee.setEmployment(employment);
 
         return employeeRepository.save(employee);
     }
@@ -73,12 +72,9 @@ public class EmployeeServices {
         employee.setDateOfBirth(employeeRequest.getDateOfBirth());
         employee.setEmail(employeeRequest.getEmail());
         employee.setPassword(employeeRequest.getPassword());
-        List<Employment>employments=new ArrayList<>();
-        for (Long employmentId:employeeRequest.getEmploymentsId()){
-            Employment employment=employmentServices.createEmployment(employmentId);
-            employments.add(employment);
-        }
-        employee.setEmployments(employments);
+
+        Employment employment=employmentServices.createEmployment(employeeRequest.getEmploymentId());
+        employee.setEmployment(employment);
         return employeeRepository.save(employee);
     }
 
@@ -109,6 +105,11 @@ public class EmployeeServices {
         }
         employee.setAbilities(abilities);
         return employeeRepository.save(employee);
+    }
+    @Transactional
+    public List<Notification>showNotifications(Long idEmployee){
+        Employee employee=employeeRepository.findById(idEmployee).orElseThrow(()->new BadRequestException(ExceptionMessageEnum.USER_NOT_FOUND.getMessage()));
+        return notificationRepository.queryFiltrarNotificationByNamejob(employee.getEmployment().getName());
     }
 
 }

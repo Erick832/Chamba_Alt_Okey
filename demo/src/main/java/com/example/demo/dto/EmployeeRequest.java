@@ -11,6 +11,5 @@ public class EmployeeRequest {
     private LocalDate dateOfBirth;
     private String email;
     private String password;
-
-    private List<Long>employmentsId;
+    private Long employmentId;
 }

@@ -1,12 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.common.EntityDtoConverter;
-import com.example.demo.dto.AbilityRequest;
-import com.example.demo.dto.EmployeeRequest;
-import com.example.demo.dto.EmployeeResponse;
-import com.example.demo.dto.UserRequest;
-import com.example.demo.entities.Ability;
+import com.example.demo.dto.*;
 import com.example.demo.entities.Employee;
+import com.example.demo.entities.Notification;
 import com.example.demo.services.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,5 +49,10 @@ public class EmployeeController {
     public ResponseEntity<EmployeeResponse>addAbility(@PathVariable Long idEmployee, @RequestBody AbilityRequest abilityRequest){
         Employee employee=employeeServices.addAbility(idEmployee, abilityRequest);
         return new ResponseEntity<>(entityDtoConverter.convertEntityToDto(employee),HttpStatus.OK);
+    }
+    @GetMapping("/notifications/{idEmployee}")
+    public ResponseEntity<List<NotificationResponse>>showNotifications(@PathVariable Long idEmployee){
+        List<Notification>notifications=employeeServices.showNotifications(idEmployee);
+        return new ResponseEntity<>(entityDtoConverter.convertNotificationsToDto(notifications),HttpStatus.OK);
     }
 }
