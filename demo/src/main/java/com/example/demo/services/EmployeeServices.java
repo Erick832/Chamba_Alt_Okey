@@ -3,21 +3,22 @@ package com.example.demo.services;
 import com.example.demo.common.Validator;
 import com.example.demo.dto.AbilityRequest;
 import com.example.demo.dto.EmployeeRequest;
+import com.example.demo.dto.JobApplicationRequest;
 import com.example.demo.dto.UserRequest;
-import com.example.demo.entities.Ability;
-import com.example.demo.entities.Employee;
-import com.example.demo.entities.Employment;
-import com.example.demo.entities.Notification;
+import com.example.demo.entities.*;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ExceptionMessageEnum;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.repositories.EmployeeRepository;
+import com.example.demo.repositories.JobApplicationRepository;
+import com.example.demo.repositories.JobOfferRepository;
 import com.example.demo.repositories.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,10 @@ public class EmployeeServices {
     private AbilityServices abilityServices;
     @Autowired
     private NotificationRepository notificationRepository;
+    @Autowired
+    private JobApplicationRepository jobApplicationRepository;
+    @Autowired
+    private JobOfferRepository jobOfferRepository;
 
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
@@ -111,6 +116,12 @@ public class EmployeeServices {
     public List<Notification>showNotifications(Long idEmployee){
         Employee employee=employeeRepository.findById(idEmployee).orElseThrow(()->new BadRequestException(ExceptionMessageEnum.USER_NOT_FOUND.getMessage()));
         return notificationRepository.queryFiltrarNotificationByNamejob(employee.getEmployment().getName());
+    }
+    @Transactional
+    public Employee getEmployeeById(Long employeeId){
+        Employee employee=employeeRepository.findById(employeeId).orElseThrow(()->new BadRequestException(ExceptionMessageEnum.USER_NOT_FOUND.getMessage()));
+        return employee;
+
     }
 
 }

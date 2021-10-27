@@ -55,4 +55,9 @@ public class EmployeeController {
         List<Notification>notifications=employeeServices.showNotifications(idEmployee);
         return new ResponseEntity<>(entityDtoConverter.convertNotificationsToDto(notifications),HttpStatus.OK);
     }
+    @GetMapping("/{idEmployee}")
+    public ResponseEntity<EmployeeResponse>getEmployeeById(@PathVariable Long idEmployee){
+        Employee employee=employeeServices.getEmployeeById(idEmployee);
+        return new ResponseEntity<>(entityDtoConverter.convertEntityToDto(employee),HttpStatus.OK);
+    }
 }

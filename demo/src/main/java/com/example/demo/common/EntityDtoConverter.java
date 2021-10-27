@@ -1,13 +1,7 @@
 package com.example.demo.common;
 
-import com.example.demo.dto.EmployeeResponse;
-import com.example.demo.dto.EmployerResponse;
-import com.example.demo.dto.JobOfferResponse;
-import com.example.demo.dto.NotificationResponse;
-import com.example.demo.entities.Employee;
-import com.example.demo.entities.Employer;
-import com.example.demo.entities.JobOffer;
-import com.example.demo.entities.Notification;
+import com.example.demo.dto.*;
+import com.example.demo.entities.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +13,14 @@ import java.util.stream.Collectors;
 public class EntityDtoConverter {
     @Autowired
     private ModelMapper modelMapper;
+    public JobApplicationResponse convertEntityToDto(JobApplication jobApplication){
+        return modelMapper.map(jobApplication,JobApplicationResponse.class);
+    }
+    public List<JobApplicationResponse>convertJobApplicationsToDto(List<JobApplication>jobApplications){
+        return jobApplications.stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
 
     public NotificationResponse convertEntityToDto(Notification notification){
         return modelMapper.map(notification,NotificationResponse.class);

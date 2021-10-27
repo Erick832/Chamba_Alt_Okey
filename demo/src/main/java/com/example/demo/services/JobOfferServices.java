@@ -4,6 +4,7 @@ import com.example.demo.common.Validator;
 import com.example.demo.dto.JobOfferRequest;
 import com.example.demo.entities.Employer;
 import com.example.demo.entities.Employment;
+import com.example.demo.entities.JobApplication;
 import com.example.demo.entities.JobOffer;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ExceptionMessageEnum;
@@ -28,9 +29,10 @@ public class JobOfferServices {
     private EmployerRepository employerRepository;
     @Autowired
     private EmploymentServices employmentServices;
-
     @Autowired
     private NotificationServices notificationServices;
+
+
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
     public JobOffer createJobOffer(JobOfferRequest jobOfferRequest) {
@@ -75,7 +77,7 @@ public class JobOfferServices {
     }
     @Transactional
     public JobOffer findJobOfferById(Long id){
-        return jobOfferRepository.findById(id).orElseThrow(()->new BadRequestException(ExceptionMessageEnum.USER_NOT_FOUND.getMessage()));
+        return jobOfferRepository.findById(id).orElseThrow(()->new BadRequestException(ExceptionMessageEnum.JOB_OFFER_NOT_FOUND.getMessage()));
     }
     @Transactional
     public List<JobOffer>findAllByname(String name){
@@ -85,5 +87,6 @@ public class JobOfferServices {
     public List<JobOffer>findAllByType(String type){
         return jobOfferRepository.queryFiltrarPorTipo(type);
     }
+
 
 }

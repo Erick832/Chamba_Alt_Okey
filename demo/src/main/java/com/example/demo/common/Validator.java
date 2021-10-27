@@ -68,4 +68,5 @@ public class Validator {
         }
         throw new BadRequestException(ExceptionMessageEnum.NOT_SECURE_PASSWORD.getMessage());
     }
+
 }
