@@ -69,8 +69,9 @@ public class JobOfferServices {
         jobOffer.setState("available");
         Employment employment=employmentServices.createEmployment(jobOfferRequest.getEmploymentId());
         jobOffer.setEmployment(employment);
-
-        return jobOfferRepository.save(jobOffer);
+        jobOfferRepository.save(jobOffer);
+        notificationServices.createNotifications(employment.getName(),jobOffer.getJobOfferId());
+        return jobOffer;
     }
     @Transactional
     public JobOffer findJobOfferById(Long id){
