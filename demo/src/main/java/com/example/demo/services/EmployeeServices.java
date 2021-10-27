@@ -86,6 +86,7 @@ public class EmployeeServices {
 
     @Transactional
     public Employee loginEmployee(UserRequest userRequest){
+        Validator.validarEmail(userRequest.getEmail());
         if (employeeRepository.existsByEmail(userRequest.getEmail())){
             Employee employee=employeeRepository.findByEmail(userRequest.getEmail());
             if(userRequest.getPassword().equals(employee.getPassword())){

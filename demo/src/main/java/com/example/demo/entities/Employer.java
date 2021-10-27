@@ -20,5 +20,9 @@ public class Employer {
     private String company;
     @Column(name="date_of_birth")
     private LocalDate dateOfBirth;
+    @Column(name="email")
+    private String email;
+    @Column (name="password")
+    private String password;
 
 }

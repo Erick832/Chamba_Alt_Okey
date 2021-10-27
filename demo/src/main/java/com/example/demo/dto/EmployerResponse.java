@@ -12,4 +12,6 @@ public class EmployerResponse {
     private String lastName;
     private String company;
     private LocalDate dateOfBirth;
+    private String email;
+    private String password;
 }

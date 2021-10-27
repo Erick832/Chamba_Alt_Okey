@@ -7,6 +7,7 @@ import com.example.demo.dto.JobOfferRequest;
 import com.example.demo.exception.ExceptionMessageEnum;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.repositories.EmployeeRepository;
+import com.example.demo.repositories.EmployerRepository;
 
 public class Validator {
 
@@ -28,12 +29,19 @@ public class Validator {
         }
         return true;
     }
-    public static boolean validarRepeatedEmail(EmployeeRepository employeeRepository,String Email){
-        if(employeeRepository.existsByEmail(Email)){
+    public static boolean validarRepeatedEmail(EmployeeRepository employeeRepository,String email){
+        if(employeeRepository.existsByEmail(email)){
             throw new BadRequestException(ExceptionMessageEnum.EMAIL_REPEATED.getMessage());
         }
         return true;
     }
+    public static boolean validadRepeatEmailEmployer(EmployerRepository employerRepository, String email){
+        if (employerRepository.existsByEmail(email)){
+            throw new BadRequestException((ExceptionMessageEnum.EMAIL_REPEATED.getMessage()));
+        }
+        return true;
+    }
+
     public static boolean validarEmail(String email){
         if(email.contains(".com")&&email.contains("@")){
            return true;
