@@ -33,9 +33,11 @@ public class JobApplicationServices {
         jobApplication.setMessage(jobApplicationRequest.getMessage());
         return jobApplicationRepository.save(jobApplication);
     }
+    @Transactional
     public List<JobApplication>getAllJobApplications(){
         return jobApplicationRepository.findAll();
     }
+    @Transactional
     public List<JobApplication>findJobApplicationsByJobOfferId(Long jobOfferId){
         return jobApplicationRepository.findAllByJobOfferId(jobOfferId);
     }

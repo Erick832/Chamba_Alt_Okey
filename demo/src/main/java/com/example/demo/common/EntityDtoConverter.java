@@ -13,6 +13,15 @@ import java.util.stream.Collectors;
 public class EntityDtoConverter {
     @Autowired
     private ModelMapper modelMapper;
+
+    public MessageResponse convertEntityToDto(Message message){
+        return modelMapper.map(message,MessageResponse.class);
+    }
+    public List<MessageResponse>convertMessagesToDto(List<Message>messages){
+        return messages.stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
     public JobApplicationResponse convertEntityToDto(JobApplication jobApplication){
         return modelMapper.map(jobApplication,JobApplicationResponse.class);
     }
