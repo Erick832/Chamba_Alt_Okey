@@ -1,5 +1,4 @@
 package com.example.demo.services;
-
 import com.example.demo.common.Validator;
 import com.example.demo.dto.JobOfferRequest;
 import com.example.demo.entities.Employer;
@@ -17,10 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Date;
 import java.util.List;
-
 @Service
 public class JobOfferServices {
     @Autowired
@@ -31,8 +28,6 @@ public class JobOfferServices {
     private EmploymentServices employmentServices;
     @Autowired
     private NotificationServices notificationServices;
-
-
 
     @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRED)
     public JobOffer createJobOffer(JobOfferRequest jobOfferRequest) {
@@ -87,6 +82,5 @@ public class JobOfferServices {
     public List<JobOffer>findAllByType(String type){
         return jobOfferRepository.queryFiltrarPorTipo(type);
     }
-
 
 }

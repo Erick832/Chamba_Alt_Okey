@@ -30,6 +30,4 @@ public class Employee {
 
     @OneToOne
     private Employment employment;
-
-
 }

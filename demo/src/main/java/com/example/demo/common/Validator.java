@@ -17,12 +17,14 @@ public class Validator {
         }
         return true;
     }
+
     public static boolean validarJobOffer(JobOfferRequest jobOfferRequest){
         if (jobOfferRequest.getDescription().isEmpty()||jobOfferRequest.getEmployerId()==null){
             throw new BadRequestException(ExceptionMessageEnum.JOB_OFFER_IS_EMPTY.getMessage());
         }
         return true;
     }
+
     public static boolean validarEmployee(EmployeeRequest employeeRequest){
         if(employeeRequest.getName().isEmpty()||employeeRequest.getLastName().isEmpty()){
             throw new BadRequestException(ExceptionMessageEnum.USER_IS_EMPTY.getMessage());
@@ -68,5 +70,4 @@ public class Validator {
         }
         throw new BadRequestException(ExceptionMessageEnum.NOT_SECURE_PASSWORD.getMessage());
     }
-
 }
